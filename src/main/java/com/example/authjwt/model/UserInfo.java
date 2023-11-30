@@ -24,17 +24,7 @@ public class UserInfo {
     private String roles;
 
 
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public String getRoles() {
-//        return roles;
-//    }
+
 
 
 

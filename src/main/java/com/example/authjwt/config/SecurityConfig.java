@@ -41,15 +41,21 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(request-> request
-                        .requestMatchers("/addNewUser","/auth/welcome", "/auth/addNewUser", "/auth/generateToken").permitAll()
+                        .requestMatchers("/auth/success","/addNewUser","/auth/welcome", "/auth/addNewUser", "/auth/generateToken").permitAll()
 
                         .requestMatchers("/auth/user/**").hasAnyAuthority("ROLE_USER")
 
                         .requestMatchers("/auth/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
 
-
+                        .formLogin(form-> form
+                                .loginPage("/auth/login")
+                                .loginProcessingUrl("/auth/processLogin")
+                                .defaultSuccessUrl("/auth/success")
+                                .failureUrl("/auth/welcome?error=true")
+                                .permitAll()
+                        )
                         .sessionManagement(session-> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
